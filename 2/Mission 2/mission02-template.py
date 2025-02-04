@@ -13,12 +13,15 @@ from runes import *
 # Task 1a #
 ###########
 
+# xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx WRONG ATTEMPT xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 # @brief Recursively generates fractal based on primitive.
 #
 #        Uses a helper function recursive_func to preserve original primitive
 #        through iterations.
+#
+# @note OUTDATED, NOT SUPPOSED TO USE A HELPER FUNCTION. UPDATED fractal() FUNCTION BELOW
 
-def fractal(primitive, iterations):
+def fractal_outdated(primitive, iterations):
     # Fill in code here
     # Helper function
     def recursive_func(current_fractal, remaining_iterations):
@@ -32,7 +35,15 @@ def fractal(primitive, iterations):
             return recursive_func(new_fractal, remaining_iterations - 1)
         
     return recursive_func(primitive, iterations)
-    
+# xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
+
+# @brief Recursively generates fractal based on primitive.
+def fractal(primitive, iterations):
+    if(iterations == 1):
+        return primitive
+
+    return beside(primitive, stack(fractal(primitive, iterations - 1), fractal(primitive, iterations - 1)))
 
 # Test
 # show(fractal(make_cross(rcross_bb), 3))
@@ -45,8 +56,8 @@ def fractal(primitive, iterations):
 
 def fractal_iter(primitive, iterations):
     # Fill in code here
-    if(iterations == 1):
-        return primitive
+    #if(iterations == 1):  # not required actually
+        #return primitive
 
     new_fractal = primitive
 
@@ -57,7 +68,7 @@ def fractal_iter(primitive, iterations):
     return new_fractal
 
 # Test
-# show(fractal_iter(make_cross(rcross_bb), 3))
+show(fractal_iter(make_cross(rcross_bb), 1))
 # show(fractal_iter(make_cross(rcross_bb), 7))
 # Write your additional test cases here
 
