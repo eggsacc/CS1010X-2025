@@ -7,7 +7,18 @@ def fib(n):
     else:
         return fib(n - 1) + fib(n - 2)
 
-trace(fib)
-fib(3)
-untrace(fib)
-fib(3)
+
+calls = 5
+original_rotate = rotate
+trace(x_of)
+gosper_curve(calls)(0.5)
+untrace(x_of)
+print("###############")
+
+replace_fn(rotate, joe_rotate)
+trace(x_of)
+gosper_curve(calls)(0.5)
+untrace(x_of)
+
+replace_fn(rotate, original_rotate)
+
