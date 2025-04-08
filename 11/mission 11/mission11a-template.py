@@ -21,13 +21,12 @@
 #   return mul(x, x)
 
 # (a) What are the types of the input and output of the generic square operation?
-# Answer: (Generic-num) -> (Generic-num)
+# Answer:
 
 # (b) Why would we prefer to define square in the above way, rather than:
-# def square(x): 
+# def square(x):
 #    return apply_generic("square", x)
-# Answer: Using def square(x) leverages already implemented functions within the operation lookup table, so
-#         the programmer does not need to know how to implement a new "square" method within the lookup table.
+# Answer:
 
 ##########
 # Task 2 #
@@ -38,12 +37,6 @@
 # ’negate_ord’ and (’ordinary’, ).
 # In contrast, the constructor that creates an ordinary number is indexed by
 # ’make_ord’ and just a string ’ordinary’. Explain why we have such a difference.
-
-# Answer: The "make" constructor only requires 1 argument: the type of number to construct, hence it could be
-#         indexed using just a string.
-#         The other generic operators, however, has to operate on multiple generic numbers, hence it has to be indexed
-#         via a tuple of strings specifying the type of each number. However, some operations like `negate` which only
-#         operates on a single number is still indexed by a tuple for consistency with other operators (?)
 
 # Hint: Consider the differences in the process of the creation of a Generic-Num,
 # such as create_ordinary, and the operations we can apply on Generic-Num, such
@@ -64,16 +57,9 @@
 # What happens when you use the wrong way to produce 9/10 and 3/10 and then try to add
 # them? Why does this happen?
 
-# Right way: add(create_rational(create_ordinary(9), create_ordinary(10)),
-#                create_rational(create_ordinary(3), create_ordinary(10)))
-
-# What happens: Error: ('Bad tagged datum -- type_arg', 9)
-
-# Why it happens: If we do it the wrong way without calling create_ordinary(), the input parameters to the create_rational()
-#                 function does not follow the expected data format of {tag} x RepNum.
-#                 In other words, the function create_rational() expects (generic-ord, generic-ord) -> (generic-rat), but doing
-#                 the wrong way passes arguments of the type (int, int) instead. The function create_ordinary() is required to
-#                 convert the integer into a generic-ord.
+# Right way:
+# What happens:
+# Why it happens:
 
 ##########
 # Task 4 #
@@ -97,10 +83,10 @@
 #         "ordinary"  5
 
 # FILL IN YOUR ANSWERS HERE:
-#r2_7 = create_rational(create_ordinary(2), create_ordinary(7))
-#r3_1 = create_rational(create_ordinary(3), create_ordinary(1))
+# r2_7 =
+# r3_1 =
 
-#csq = square(sub(r2_7, r3_1))
+# csq = square(sub(r2_7, r3_1))
 
 ## Sample ASCII box and pointer diagrams (with 2 components) for your convenience
 ##            +---+---+---+---+
@@ -123,7 +109,7 @@
 # handled the addition operation. Why is it not
 # possible to name this function "add"?
 
-# Answer: 
+# Answer:
 
 ##########
 # Task 6 #
@@ -159,32 +145,12 @@ def install_rational_package():
     def div_rat(x, y):
         return make_rat( mul(numer(x), denom(y)),
                          mul(denom(x), numer(y)) )
-
-    # Implemented functions:
-    # (RepRat) -> Generic-Rat
-    def negate_rat(x):
-        return make_rat(negate(numer(x)),
-                        denom(x))
-    
-    # (RepRat) -> (Boolean)
-    def is_zero_rat(x):
-        return is_zero(numer(x))
-    
-    # (RepRat, RepRat) -> (Boolean)
-    def is_eq_rat(x, y):
-        return is_equal(div(numer(x), denom(x)),
-                        div(numer(y), denom(y)))
     
     put("make", "rational", make_rat)
     put("add", ("rational", "rational"), add_rat)
     put("sub", ("rational", "rational"), sub_rat)
     put("mul", ("rational", "rational"), mul_rat)
     put("div", ("rational", "rational"), div_rat)
-    
-    # Package extension
-    put("negate", ("rational",), negate_rat)
-    put("is_zero", ("rational",), is_zero_rat)
-    put("is_equal", ("rational", "rational"), is_eq_rat)
 
 install_rational_package()
 
@@ -192,9 +158,9 @@ def create_rational(x, y):
     return get("make", "rational")(x, y)
 
 # Change the values for the test variables below
-r1_2 = create_rational(create_ordinary(1), create_ordinary(2))
-r2_4 = create_rational(create_ordinary(2), create_ordinary(4))
-r1_8 = create_rational(create_ordinary(1), create_ordinary(8))
+r1_2 = None
+r2_4 = None
+r1_8 = None
 
 #################
 # Do not change #
