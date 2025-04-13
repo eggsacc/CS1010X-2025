@@ -1,3 +1,11 @@
+import random
+import time
+
+test_size = 1000
+
+test_list = [i for i in range(1, test_size + 1)]
+random.shuffle(test_list)
+
 def bubble_sort(lst):
     lst_length = len(lst)
     for i in range(lst_length):
@@ -6,9 +14,6 @@ def bubble_sort(lst):
                 lst[j], lst[j + 1] = lst[j + 1], lst[j]
     return lst
 
-lst = [523, 12, 845, 34, 91, 237, 678, 453, 98, 105, 782, 999, 431, 220, 334, 670, 19, 23, 564, 711, 42, 8, 92, 374, 651, 222, 814, 746, 100, 333, 567, 876, 290, 111, 54, 671, 892, 755, 267, 125, 308, 666, 503, 78, 420, 589, 600, 101, 20, 931]
-
-print(bubble_sort(lst))
 
 def merge_sort(lst):
     lst_length = len(lst)
@@ -38,4 +43,11 @@ def merge(left, right):
 
     return merged
 
-print(merge_sort(lst))
+def test(*args):
+    for func in args:
+        start = time.time()
+        func(test_list)
+        end = time.time()
+        print(f"{func.__name__} | [{test_size} samples]: {end - start} seconds")
+
+test(bubble_sort, merge_sort)
