@@ -1,5 +1,16 @@
 # 1a) not correct, he is modifying the list while iterating, which causes unexpected behaviour
 
+# Another approach is to iterate from the end of the list instead; 
+# this way, item getting shifted to forward would not matter
+# Caveat: If we iterate from the end, but still remove elements using list.remove(val),
+# the code does not work if there are duplicate values! The list.remove() method checks from the beginning
+# and removest the first occurrance of the value, which might end up removing another member of the same value
+# that appears earlier.
+# For instance, lst = [1, 2, 3, 4, 5, 3, 6]
+# Iterating from the back, we want to remove 3 at index 5, However, lst.remove(5) will remove the (3) 
+# present at index 2 instead.
+# Pro tip: use list.pop(idx) instead!
+
 #1b) Do not modify the list when iterating by index
 
 # 1c)

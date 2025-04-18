@@ -67,9 +67,23 @@ def set(mat, x, y, val):
     return mat
 
 def transpose(m):
-    pass
+    entries = m[2]
+    for item in entries:
+        item[0], item[1] = item[1], item[0]
+    
+    entries.sort()
+    return m
 
+def print_matrix(mat):
+    rows, clmns, entries = mat
+    for row in range(rows):
+        string = "["
+        for clmn in range(clmns):
+            string += str(entries[row*rows+clmn][2]) + ", "
+
+        print(string + "]")
+        
 test = make_matrix(m)
-print(test)
-print(get(test, 1, 2))
-print(set(test, 1, 2, 7))
+# print(test)
+# print(transpose(test))
+print_matrix(test)
