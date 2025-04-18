@@ -44,6 +44,21 @@ def print_matrix(mat):
     for row in mat:
         print(row)
 
+# Arguments are passed by object reference to functions in python.
+# The "name" of any variable is just a name-tag attached to the object in memory.
+# When we pass, say a list m into a function foo(lst), lst is created as a local variable that points to the
+# same object in memory (the list) as m.
+# When we index lst in the function and change the value, we are accessing the shared list in memory and directly
+# modifying it.
+# However, if we try to re-assign the list to another list in the function, the local variable
+# "list" simply switches to referencing the other list object. The original "m" outside the function is unchanged.
+
+def sumT(t, term, next):
+    pass
+
+def transpose(t):
+    return sumT(t, lambda N: [map(lambda row: row[0], N)], 
+                lambda N: map(lambda row: row[1:], N) if True else 0) 
 # 2a)
 def make_matrix(seq):
     data = []
@@ -60,14 +75,31 @@ def cols(m):
     return m[1]
 
 def get(m, x, y):
-    return m[2][x*rows(m) + y][2]
+    for item in m[2]:
+        if(item[0] == x and item[1] == y):
+            return item[3]
 
-def set(mat, x, y, val):
-    mat[2][x*rows(mat) + y] = [x, y, val]
-    return mat
+# Also need to add another extry if the requested index does not exist.
+# And drop (remove) the entry if it's value is updated to 0.
+def set(m, x, y, val):
+    if(x >= rows(m) - 1 or y >= cols(m) - 1):
+        return m
 
+    for item in m[2]:
+        if(item[0] == x and item[1] == y):
+            if(val == 0):
+                m[2].remove([x, y, item[3]])
+            else:
+                item[3] = val
+
+    # Yet to implement: insert new entry if does not exist
+     
 def transpose(m):
     entries = m[2]
+
+    # Don't forget to swap the sizes too!!!
+    m[0], m[1] = m[1], m[0]
+
     for item in entries:
         item[0], item[1] = item[1], item[0]
     
@@ -76,14 +108,23 @@ def transpose(m):
 
 def print_matrix(mat):
     rows, clmns, entries = mat
+    idx = 0
     for row in range(rows):
         string = "["
         for clmn in range(clmns):
-            string += str(entries[row*rows+clmn][2]) + ", "
+            if(entries[idx][0] == row and entries[idx][1] == clmn):
+                string += str(entries[idx][2]) + ", "
+                idx += 1
+            else:
+                string += "0, "
 
         print(string + "]")
-        
-test = make_matrix(m)
+
+# Alternative way:
+# Create a return array of size n x m of all 0s, then for each entry in the sparse array, set the corresponding value.
+
+another = [[1, 0, 3], [4, 0, 0], [7, 0, 0], [0, 0, 0], [0, 0, 15]]
+test = make_matrix(another)
 # print(test)
 # print(transpose(test))
 print_matrix(test)
