@@ -5,6 +5,9 @@ def denomination(n):
     else:
         return 0
 
+"""
+
+"""
 def cc(a, n):
     if(a == 0):
         return 1
@@ -44,6 +47,32 @@ def cc_dp(amount, coins):
 
     return dp[amount]
 
+def print_table(table):
+    cnt = 1
+    for row in table:
+        print(cnt, row)
+        cnt += 1
+
+def cc_dp_2(a, n):
+    coins = [1, 5, 10, 20, 50, 100]
+    dp_table = []
+    row = [0] * (n+1)
+    for i in range(a+1):
+        dp_table.append(list(row)) # Need to use list(row) to avoid creating duplicate alias for the rows.
+    
+    for i in range(1, n+1):
+        dp_table[0][i] = 1
+    
+    for col in range(1, d+1):
+        for row in range(1, a+1):
+            if(row-coins[col-1]) < 0:
+                dp_table[row][col] = dp_table[row][col-1]
+            else:
+                dp_table[row][col] = dp_table[row-coins[col-1]][col] + \
+                dp_table[row][col-1]
+    return dp_table
+    
+print_table(cc_dp_2(11,5))
 #print(cc(500, 6))
 #print(cc_memoized(500, 6))
 #print(cc_dp(500, 6))
