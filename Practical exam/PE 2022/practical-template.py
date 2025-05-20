@@ -6,18 +6,43 @@
 from string import ascii_uppercase
 
 def encrypt(message, cipher):
-        plain = list(ascii_uppercase)
-        pass
+		plain = list(ascii_uppercase)
+		ret = ""
+		for char in message:
+			if(char == " "):
+				ret += " "
+				continue
+			idx = 0
+			while(plain[idx] != char):
+				idx += 1
+			ret += cipher[idx]
+			plain.remove(char)
+			plain.insert(0, char)
+		return ret
+		
 
-# print("*** Question 1 ***")
-# print(encrypt('HELLO', 'DEFGHIJKLMNOPQRSTUVWXYZABC') == 'KIODR', encrypt('HELLO', 'DEFGHIJKLMNOPQRSTUVWXYZABC'))
-# print(encrypt('I LOVE PYTHON', 'DQOLVJSGYCREUTBKXIWNHAMZPF') == 'Y EBAY XPABSW', encrypt('I LOVE PYTHON', 'DQOLVJSGYCREUTBKXIWNHAMZPF'))
+print("*** Question 1 ***")
+print(encrypt('HELLO', 'DEFGHIJKLMNOPQRSTUVWXYZABC') == 'KIODR', encrypt('HELLO', 'DEFGHIJKLMNOPQRSTUVWXYZABC'))
+print(encrypt('I LOVE PYTHON', 'DQOLVJSGYCREUTBKXIWNHAMZPF') == 'Y EBAY XPABSW', encrypt('I LOVE PYTHON', 'DQOLVJSGYCREUTBKXIWNHAMZPF'))
 
 
 ## Question 2 ##
 
 def decrypt(message, cipher):
-	pass
+	plain = list(ascii_uppercase)
+	ret = ""
+	for i in range(len(message)):
+		if(message[i] == " "):
+			ret += " "
+		else:
+			idx = 0
+			while message[i] != cipher[idx]:
+				idx += 1
+			pass
+ 
+
+		
+
 
 # print("\n*** Question 2 ***")
 # print(decrypt('KIODR', 'DEFGHIJKLMNOPQRSTUVWXYZABC') == 'HELLO', decrypt('KIODR', 'DEFGHIJKLMNOPQRSTUVWXYZABC'))
@@ -43,22 +68,32 @@ from runes import *
 ## Question 4 ##
 
 def stackn_list(pics):
-	pass
+	initial = pics[0]
+	for i in range(1, len(pics)):
+		initial = stack(pics[i], initial)
+	return initial
 
-# print("\n*** Question 4 ***")
-# print(" --- need to visually check whether the rune is correct or not ---")
-# show(stackn_list([make_cross(nova_bb), make_cross(rcross_bb), circle_bb, heart_bb]))
-# show(stackn_list([make_cross(rcross_bb), make_cross(nova_bb), pentagram_bb, make_cross(nova_bb), make_cross(rcross_bb)]))
-
+print("\n*** Question 4 ***")
+print(" --- need to visually check whether the rune is correct or not ---")
+#show(stackn_list([nova_bb, nova_bb, nova_bb]))
+#show(stackn_list([make_cross(nova_bb), make_cross(rcross_bb), circle_bb, heart_bb]))
+#show(stackn_list([make_cross(rcross_bb), make_cross(nova_bb), pentagram_bb, make_cross(nova_bb), make_cross(rcross_bb)]))
 
 ## Question 5 ##
 
 def mxn_matrix(pics, matrix):
-	pass
-
+        rows = []
+        for item in matrix:
+            row = []
+            for obj  in item:
+                row.append(quarter_turn_left(pics[obj]))
+            rows.append(quarter_turn_right(stackn_list(row)))
+        return stackn_list(rows[-1::-1])
+    
 # print("\n*** Question 5 ***")
 # print(" --- need to visually check whether the rune is correct or not ---")
-# show(mxn_matrix([make_cross(nova_bb), make_cross(rcross_bb), circle_bb, heart_bb], [[0, 1, 2, 3], [1, 0, 1, 2], [2, 1, 0, 1], [3, 2, 1, 0]]))
+# show(mxn_matrix([make_cross(nova_bb), make_cross(rcross_bb), circle_bb, heart_bb],
+                [[0, 1, 2, 3], [1, 0, 1, 2], [2, 1, 0, 1], [3, 2, 1, 0]]))
 # show(mxn_matrix([make_cross(rcross_bb), make_cross(nova_bb), pentagram_bb], [[0, 0, 0, 0, 0, 0], [0, 1, 1, 1, 1, 0], [0, 1, 2, 2, 1, 0], [0, 1, 1, 1, 1, 0], [0, 0, 0, 0, 0, 0]]))
 
 
